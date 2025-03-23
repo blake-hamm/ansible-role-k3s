@@ -24,6 +24,7 @@
     - k3s_systemd_restart_k3s is not success
     - not ansible_check_mode
   become: "{{ k3s_become }}"
+  throttle: 1
 
 - name: Restart k3s service
   ansible.builtin.service:
@@ -37,3 +38,4 @@
     - k3s_service_restart_k3s is not success
     - not ansible_check_mode
   become: "{{ k3s_become }}"
+  throttle: 1
