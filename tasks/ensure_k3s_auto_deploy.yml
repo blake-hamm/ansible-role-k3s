@@ -6,7 +6,7 @@
     path: "{{ k3s_server_manifests_dir }}"
     mode: 0755
   when: >-
-    k3s_primary_control_node and
+    k3s_control_node and
     (k3s_server_manifests_templates | length > 0
     or k3s_server_manifests_urls | length > 0)
   become: "{{ k3s_become }}"
@@ -31,7 +31,7 @@
   loop: "{{ k3s_server_manifests_templates }}"
   become: "{{ k3s_become }}"
   when:
-    - k3s_primary_control_node
+    - k3s_control_node
     - k3s_server_manifests_templates | length > 0
 
 - name: Ensure auto-deploying manifests are downloaded to the primary controller
@@ -42,7 +42,7 @@
   loop: "{{ k3s_server_manifests_urls }}"
   become: "{{ k3s_become }}"
   when:
-    - k3s_primary_control_node
+    - k3s_control_node
     - not ansible_check_mode
     - k3s_server_manifests_urls | length > 0
 
